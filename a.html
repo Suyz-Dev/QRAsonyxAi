@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asonyx AI Helmets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0f1f, #1a2332);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Left side with circular moving icons */
+        .solar-system {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .orbit-container {
+            position: relative;
+            width: 35vw;
+            height: 35vw;
+            max-width: 280px;
+            max-height: 280px;
+            margin: auto;
+            top: -40px;
+        }
+
+        /* Circular line for icons to move along */
+        .motion-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 75%;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .social-link {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #2d3748, #1a202c);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+            color: #e2e8f0;
+            font-size: 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 5;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .social-link:hover {
+            transform: translate(-50%, -50%) scale(1.3);
+            box-shadow: 0 0 35px rgba(59, 130, 246, 1);
+        }
+
+        /* Position icons and animate along circular path */
+        .link-1 {
+            animation: orbit-1 20s linear infinite;
+        }
+
+        .link-2 {
+            animation: orbit-2 25s linear infinite;
+        }
+
+        .link-3 {
+            animation: orbit-3 30s linear infinite;
+        }
+
+        .link-4 {
+            animation: orbit-4 35s linear infinite;
+        }
+
+        /* Clockwise circular movement animations - fixed distance between icons */
+        @keyframes orbit-1 {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg) translate(160px) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg) translate(160px) rotate(-360deg);
+            }
+        }
+
+        @keyframes orbit-2 {
+            from {
+                transform: translate(-50%, -50%) rotate(90deg) translate(160px) rotate(-90deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(450deg) translate(160px) rotate(-450deg);
+            }
+        }
+
+        @keyframes orbit-3 {
+            from {
+                transform: translate(-50%, -50%) rotate(180deg) translate(160px) rotate(-180deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(540deg) translate(160px) rotate(-540deg);
+            }
+        }
+
+        @keyframes orbit-4 {
+            from {
+                transform: translate(-50%, -50%) rotate(270deg) translate(160px) rotate(-270deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(630deg) translate(160px) rotate(-630deg);
+            }
+        }
+
+        /* Right side with company info */
+        .company-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        /* TypeScript-like typing animation for the logo */
+        .logo {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+            letter-spacing: 3px;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: erase 2s infinite, retype 2s 2s infinite;
+            width: 10ch;
+        }
+
+        /* Erase animation - hide the "Script" part */
+        @keyframes erase {
+            0% { width: 10ch; }
+            100% { width: 4ch; } /* Keep "Type" visible, hide "Script" */
+        }
+
+        /* Retype animation - show the full "TypeScript" */
+        @keyframes retype {
+            0% { width: 4ch; } /* Start with "Type" visible */
+            100% { width: 10ch; } /* Show full "TypeScript" */
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #94a3b8;
+            font-weight: 300;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 500px;
+            color: #cbd5e1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(37, 99, 235, 0.6);
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.8);
+        }
+
+        .contact-section {
+            margin-top: 30px;
+            border-top: 1px solid rgba(59, 130, 246, 0.4);
+            padding-top: 30px;
+        }
+
+        .contact-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3rem;
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #2d3748, #1a202c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            font-size: 22px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1100px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .company-info {
+                padding: 30px;
+                text-align: center;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .logo {
+                font-size: 3.8rem;
+            }
+            
+            .tagline {
+                font-size: 1.5rem;
+            }
+            
+            .description {
+                font-size: 1.1rem;
+            }
+            
+            .cta-button {
+                padding: 16px 32px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left side with circular moving icons -->
+        <div class="solar-system">
+            <div class="orbit-container">
+                <!-- Heading for social media -->
+                <h2 style="position: absolute; top: -190px; left: 50%; transform: translateX(-50%); color: #e2e8f0; font-size: 1.5rem; font-weight: 500; text-align: center; width: 100%;">Explore Our Social Media Handle</h2>
+                
+                <!-- Circular line for icons to move along -->
+                <div class="motion-circle"></div>
+                
+                <!-- Social Links moving along circular path -->
+                <a href="https://www.facebook.com/share/1BV3ZW6bnE/" class="social-link link-1" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/asonyx.ai?igsh=aGtoZXVwdGdjc2Vu" class="social-link link-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/asonyx-ai/" class="social-link link-3" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.reddit.com/u/AsonyxAi/s/JQ3DA9TooB" class="social-link link-4" target="_blank">
+                    <i class="fab fa-reddit-alien"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Right side with company info -->
+        <div class="company-info">
+            <h1 class="logo">AsonyxAi</h1>
+            <p class="tagline">Intelligent Protection for the Modern World</p>
+            <p class="description">
+                Asonyx AI Helmets combine cutting-edge artificial intelligence with advanced safety features to create the most intelligent head protection system available. Our helmets are designed for the modern world, offering unparalleled safety and connectivity.
+            </p>
+            <a href="#" class="cta-button">Explore Our Website</a>
+            
+            <div class="contact-section">
+                <h2 class="contact-title">Connect With Us</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <span>asonyxai@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <span>+91 7505397095</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <span>+91 7417634193</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to links
+            const links = document.querySelectorAll('.social-link');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.animationPlayState = 'paused';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    link.style.animationPlayState = 'running';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
